@@ -59,9 +59,11 @@ def predict(model, x):
 def build_model(x, y, num_hidden, num_passes=20000, print_loss=False):
      
     #Initialize the parameters to random values. We need to learn these.
-    np.random.seed(0)
+    np.random.seed(5)
+
     w1 = np.random.randn(num_input_dim, num_hidden) / np.sqrt(num_input_dim)
     b1 = np.zeros((1, num_hidden))
+
     w2 = np.random.randn(num_hidden, num_output_dim) / np.sqrt(num_hidden)
     b2 = np.zeros((1, num_output_dim))
  
@@ -122,8 +124,8 @@ def plot_decision_boundary(pred_func, x, y):
     Z = Z.reshape(xx.shape)
 
     #Plot the contour and training examples
-    plt.contourf(xx, yy, Z, cmap=plt.cm.PRGn)
-    plt.scatter(x[:, 0], x[:, 1], c=y, cmap=plt.cm.PRGn)
+    plt.contourf(xx, yy, Z, cmap=plt.cm.PiYG)
+    plt.scatter(x[:, 0], x[:, 1], c=y, cmap=plt.cm.PiYG)
     plt.show()
 
 def main():
@@ -132,7 +134,11 @@ def main():
 	np.random.seed(5)
 
 	#Create a dataset that looks like two interleaved half circles. The first parameter is the number of data points to generate, the second 		is the Gaussian noise level
-	x, y = datasets.make_moons(num_points, noise=0.20)
+	#x, y = datasets.make_blobs(num_points, centers = [(3, 3), (6, 6), (0, 0)])
+	x, y = datasets.make_moons(num_points, noise=0.2)
+
+	plt.scatter(x[:,0], x[:,1], s=50, c=y, cmap=plt.cm.PiYG)
+	plt.show()
 	
 	#Build the model
 	model = build_model(x, y, 3, print_loss=True)
